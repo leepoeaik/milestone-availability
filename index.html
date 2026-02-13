@@ -1,323 +1,333 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Be My Valentine?</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
-
-    body {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: url("bg.png") center/cover no-repeat fixed;
-      color: #3b0b19;
-      overflow: hidden;
-      position: relative;
-    }
-
-    /* Floating hearts background */
-    .heart {
-      position: fixed;
-      bottom: -40px;
-      color: rgba(255, 105, 180, 0.6);
-      font-size: 1.6rem;
-      animation: floatUp linear forwards;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    @keyframes floatUp {
-      0% {
-        transform: translateY(0) translateX(0) scale(1);
-        opacity: 1;
+  <head>
+    <meta charset="UTF-8" />
+    <title>Be My Valentine?</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family:
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
       }
-      100% {
-        transform: translateY(-120vh) translateX(var(--x-offset)) scale(0.8);
-        opacity: 0;
+
+      body {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: url("bg.png") center/cover no-repeat fixed;
+        color: #3b0b19;
+        overflow: hidden;
+        position: relative;
       }
-    }
 
-    .card {
-      background: rgba(255, 255, 255, 0.92);
-      padding: 2.5rem 3rem;
-      border-radius: 24px;
-      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.12);
-      text-align: center;
-      max-width: 420px;
-      position: relative;
-      overflow: hidden;
-      z-index: 1;
-    }
-
-    .card::before {
-      content: "❤";
-      font-size: 10rem;
-      color: rgba(255, 105, 180, 0.08);
-      position: absolute;
-      right: -2rem;
-      bottom: -3rem;
-      transform: rotate(-20deg);
-      pointer-events: none;
-    }
-
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 1.5rem;
-    }
-
-    p {
-      margin-bottom: 2rem;
-      font-size: 1rem;
-      opacity: 0.8;
-    }
-
-    .buttons {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      position: relative;
-    }
-
-    button {
-      padding: 0.7rem 1.8rem;
-      border-radius: 999px;
-      border: none;
-      cursor: pointer;
-      font-size: 1rem;
-      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
-      white-space: nowrap;
-    }
-
-    #yesBtn {
-      background: linear-gradient(135deg, #ff758c, #ff7eb3);
-      color: white;
-      box-shadow: 0 8px 20px rgba(255, 105, 180, 0.4);
-    }
-
-    #yesBtn:hover:not(:disabled) {
-      transform: translateY(-2px) scale(1.03);
-      box-shadow: 0 10px 26px rgba(255, 105, 180, 0.6);
-    }
-
-    #noBtn {
-      background: #f3f3f3;
-      color: #555;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-      position: relative;
-    }
-
-    #noBtn:hover:not(:disabled) {
-      transform: translateY(-1px);
-    }
-
-    #message {
-      position: fixed;
-      top: 1.5rem;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 1.7rem;
-      font-weight: 700;
-      color: #d81b60;
-      text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
-      pointer-events: none;
-      z-index: 4;
-    }
-
-    /* Spinning yay image */
-    #yayImg {
-      position: fixed;
-      inset: 0;
-      margin: auto;
-      height: 70vh;
-      max-width: 90vw;
-      object-fit: contain;
-      pointer-events: none;
-      opacity: 0;
-      transform: scale(0.8) rotate(0deg);
-      transition: opacity 0.3s ease, transform 0.3s ease;
-      z-index: 3;
-    }
-
-    #yayImg.visible {
-      opacity: 1;
-      animation: spinYay 1.5s linear infinite;
-      transform: scale(1);
-    }
-
-    @keyframes spinYay {
-      from {
-        transform: scale(1) rotate(0deg);
+      /* Floating hearts background */
+      .heart {
+        position: fixed;
+        bottom: -40px;
+        color: rgba(255, 105, 180, 0.6);
+        font-size: 1.6rem;
+        animation: floatUp linear forwards;
+        pointer-events: none;
+        z-index: 0;
       }
-      to {
-        transform: scale(1) rotate(360deg);
-      }
-    }
 
-    /* Confetti */
-    .confetti {
-      position: fixed;
-      width: 8px;
-      height: 14px;
-      background: #ffeb3b;
-      top: -20px;
-      left: 0;
-      opacity: 0.9;
-      transform: rotate(0deg);
-      animation: confettiFall linear forwards;
-      pointer-events: none;
-      z-index: 2;
-    }
-
-    @keyframes confettiFall {
-      0% {
-        transform: translateY(0) translateX(0) rotate(0deg);
-        opacity: 1;
+      @keyframes floatUp {
+        0% {
+          transform: translateY(0) translateX(0) scale(1);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-120vh) translateX(var(--x-offset)) scale(0.8);
+          opacity: 0;
+        }
       }
-      100% {
-        transform: translateY(110vh) translateX(var(--x-drift)) rotate(360deg);
-        opacity: 0;
-      }
-    }
 
-    @media (max-width: 480px) {
       .card {
-        margin: 1rem;
-        padding: 2rem 1.5rem;
+        background: rgba(255, 255, 255, 0.92);
+        padding: 2.5rem 3rem;
+        border-radius: 24px;
+        box-shadow: 0 18px 45px rgba(0, 0, 0, 0.12);
+        text-align: center;
+        max-width: 420px;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
       }
-      .buttons {
-        flex-direction: row;
-        flex-wrap: wrap;
-      }
-    }
-  </style>
-</head>
-<body>
-  <div class="card">
-    <h1>Will you be my Valentine’s date?</h1>
 
-    <div class="buttons">
-      <button id="yesBtn">Yes 💖</button>
-      <button id="noBtn">No 😈</button>
+      .card::before {
+        content: "❤";
+        font-size: 10rem;
+        color: rgba(255, 105, 180, 0.08);
+        position: absolute;
+        right: -2rem;
+        bottom: -3rem;
+        transform: rotate(-20deg);
+        pointer-events: none;
+      }
+
+      h1 {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+      }
+
+      p {
+        margin-bottom: 2rem;
+        font-size: 1rem;
+        opacity: 0.8;
+      }
+
+      .buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        position: relative;
+      }
+
+      button {
+        padding: 0.7rem 1.8rem;
+        border-radius: 999px;
+        border: none;
+        cursor: pointer;
+        font-size: 1rem;
+        transition:
+          transform 0.15s ease,
+          box-shadow 0.15s ease,
+          background 0.15s ease;
+        white-space: nowrap;
+      }
+
+      #yesBtn {
+        background: linear-gradient(135deg, #ff758c, #ff7eb3);
+        color: white;
+        box-shadow: 0 8px 20px rgba(255, 105, 180, 0.4);
+      }
+
+      #yesBtn:hover:not(:disabled) {
+        transform: translateY(-2px) scale(1.03);
+        box-shadow: 0 10px 26px rgba(255, 105, 180, 0.6);
+      }
+
+      #noBtn {
+        background: #f3f3f3;
+        color: #555;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        position: relative;
+      }
+
+      #noBtn:hover:not(:disabled) {
+        transform: translateY(-1px);
+      }
+
+      #message {
+        position: fixed;
+        top: 1.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 1.7rem;
+        font-weight: 700;
+        color: #d81b60;
+        text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+        pointer-events: none;
+        z-index: 4;
+      }
+
+      /* Spinning yay image */
+      #yayImg {
+        position: fixed;
+        inset: 0;
+        margin: auto;
+        height: 70vh;
+        max-width: 90vw;
+        object-fit: contain;
+        pointer-events: none;
+        opacity: 0;
+        transform: scale(0.8) rotate(0deg);
+        transition:
+          opacity 0.3s ease,
+          transform 0.3s ease;
+        z-index: 3;
+      }
+
+      #yayImg.visible {
+        opacity: 1;
+        animation: spinYay 0.5s linear infinite;
+        transform: scale(1);
+      }
+
+      @keyframes spinYay {
+        from {
+          transform: scale(1) rotate(0deg);
+        }
+        to {
+          transform: scale(1) rotate(360deg);
+        }
+      }
+
+      /* Confetti */
+      .confetti {
+        position: fixed;
+        width: 8px;
+        height: 14px;
+        background: #ffeb3b;
+        top: -20px;
+        left: 0;
+        opacity: 0.9;
+        transform: rotate(0deg);
+        animation: confettiFall linear forwards;
+        pointer-events: none;
+        z-index: 2;
+      }
+
+      @keyframes confettiFall {
+        0% {
+          transform: translateY(0) translateX(0) rotate(0deg);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(110vh) translateX(var(--x-drift)) rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .card {
+          margin: 1rem;
+          padding: 2rem 1.5rem;
+        }
+        .buttons {
+          flex-direction: row;
+          flex-wrap: wrap;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h1>Will you be my Valentine’s date?</h1>
+
+      <div class="buttons">
+        <button id="yesBtn">Yes 💖</button>
+        <button id="noBtn">No 😈</button>
+      </div>
+
+      <div id="message"></div>
     </div>
 
-    <div id="message"></div>
-  </div>
+    <img id="yayImg" src="yay.png" alt="Yay image" />
 
-  <img id="yayImg" src="yay.png" alt="Yay image" />
+    <script>
+      const noBtn = document.getElementById("noBtn");
+      const yesBtn = document.getElementById("yesBtn");
+      const message = document.getElementById("message");
+      const card = document.querySelector(".card");
+      const yayImg = document.getElementById("yayImg");
 
-  <script>
-    const noBtn = document.getElementById("noBtn");
-    const yesBtn = document.getElementById("yesBtn");
-    const message = document.getElementById("message");
-    const card = document.querySelector(".card");
-    const yayImg = document.getElementById("yayImg");
-
-    // Floating hearts background (loop)
-    function createHeart() {
-      const heart = document.createElement("div");
-      heart.className = "heart";
-      heart.textContent = "❤";
-      const size = 1 + Math.random(); // 1–2 rem-ish
-      const left = Math.random() * 100;
-      const duration = 6 + Math.random() * 6; // 6–12s
-
-      heart.style.left = left + "vw";
-      heart.style.fontSize = size + "rem";
-      heart.style.animationDuration = duration + "s";
-      heart.style.setProperty("--x-offset", (Math.random() * 80 - 40) + "px");
-
-      document.body.appendChild(heart);
-
-      setTimeout(() => {
-        heart.remove();
-      }, duration * 1000);
-    }
-
-    setInterval(createHeart, 800);
-
-    // Make "No" button run away when cursor gets close
-    document.addEventListener("mousemove", (e) => {
-      if (noBtn.disabled) return;
-
-      const rect = noBtn.getBoundingClientRect();
-      const btnCenterX = rect.left + rect.width / 2;
-      const btnCenterY = rect.top + rect.height / 2;
-
-      const distX = e.clientX - btnCenterX;
-      const distY = e.clientY - btnCenterY;
-      const distance = Math.hypot(distX, distY);
-
-      const triggerDistance = 120;
-
-      if (distance < triggerDistance) {
-        const angle = Math.atan2(distY, distX);
-        const moveDistance = triggerDistance - distance + 40;
-
-        let newX = rect.left - Math.cos(angle) * moveDistance;
-        let newY = rect.top - Math.sin(angle) * moveDistance;
-
-        const cardRect = card.getBoundingClientRect();
-        const minX = cardRect.left + 10;
-        const maxX = cardRect.right - rect.width - 10;
-        const minY = cardRect.top + 10;
-        const maxY = cardRect.bottom - rect.height - 10;
-
-        newX = Math.min(Math.max(newX, minX), maxX);
-        newY = Math.min(Math.max(newY, minY), maxY);
-
-        const offsetX = newX - rect.left;
-        const offsetY = newY - rect.top;
-
-        noBtn.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
-      }
-    });
-
-    // Simple confetti burst on "Yes"
-    function shootConfetti() {
-      const colors = ["#ffeb3b", "#ff4081", "#7c4dff", "#69f0ae", "#ff9100"];
-      const pieces = 80;
-
-      for (let i = 0; i < pieces; i++) {
-        const confetto = document.createElement("div");
-        confetto.className = "confetti";
-        const size = 6 + Math.random() * 6;
+      // Floating hearts background (loop)
+      function createHeart() {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.textContent = "❤";
+        const size = 1 + Math.random(); // 1–2 rem-ish
         const left = Math.random() * 100;
-        const duration = 2 + Math.random() * 2;
-        const xDrift = (Math.random() * 200 - 100) + "px";
+        const duration = 6 + Math.random() * 6; // 6–12s
 
-        confetto.style.width = size + "px";
-        confetto.style.height = size * 1.4 + "px";
-        confetto.style.left = left + "vw";
-        confetto.style.backgroundColor = colors[i % colors.length];
-        confetto.style.animationDuration = duration + "s";
-        confetto.style.setProperty("--x-drift", xDrift);
+        heart.style.left = left + "vw";
+        heart.style.fontSize = size + "rem";
+        heart.style.animationDuration = duration + "s";
+        heart.style.setProperty("--x-offset", Math.random() * 80 - 40 + "px");
 
-        document.body.appendChild(confetto);
+        document.body.appendChild(heart);
 
-        setTimeout(() => confetto.remove(), duration * 1000);
+        setTimeout(() => {
+          heart.remove();
+        }, duration * 1000);
       }
-    }
 
-    yesBtn.addEventListener("click", () => {
-      message.textContent = "Yay! It’s a date 💘";
-      yesBtn.disabled = true;
-      noBtn.disabled = true;
-      yesBtn.style.cursor = "default";
-      noBtn.style.cursor = "default";
-      shootConfetti();
-      yayImg.classList.add("visible");
-    });
+      setInterval(createHeart, 800);
 
-    noBtn.addEventListener("click", () => {
-      message.textContent = "Nice try. That’s illegal on this page.";
-    });
-  </script>
-</body>
+      // Make "No" button run away when cursor gets close
+      document.addEventListener("mousemove", (e) => {
+        if (noBtn.disabled) return;
+
+        const rect = noBtn.getBoundingClientRect();
+        const btnCenterX = rect.left + rect.width / 2;
+        const btnCenterY = rect.top + rect.height / 2;
+
+        const distX = e.clientX - btnCenterX;
+        const distY = e.clientY - btnCenterY;
+        const distance = Math.hypot(distX, distY);
+
+        const triggerDistance = 120;
+
+        if (distance < triggerDistance) {
+          const angle = Math.atan2(distY, distX);
+          const moveDistance = triggerDistance - distance + 40;
+
+          let newX = rect.left - Math.cos(angle) * moveDistance;
+          let newY = rect.top - Math.sin(angle) * moveDistance;
+
+          const cardRect = card.getBoundingClientRect();
+          const minX = cardRect.left + 10;
+          const maxX = cardRect.right - rect.width - 10;
+          const minY = cardRect.top + 10;
+          const maxY = cardRect.bottom - rect.height - 10;
+
+          newX = Math.min(Math.max(newX, minX), maxX);
+          newY = Math.min(Math.max(newY, minY), maxY);
+
+          const offsetX = newX - rect.left;
+          const offsetY = newY - rect.top;
+
+          noBtn.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+        }
+      });
+
+      // Simple confetti burst on "Yes"
+      function shootConfetti() {
+        const colors = ["#ffeb3b", "#ff4081", "#7c4dff", "#69f0ae", "#ff9100"];
+        const pieces = 80;
+
+        for (let i = 0; i < pieces; i++) {
+          const confetto = document.createElement("div");
+          confetto.className = "confetti";
+          const size = 6 + Math.random() * 6;
+          const left = Math.random() * 100;
+          const duration = 2 + Math.random() * 2;
+          const xDrift = Math.random() * 200 - 100 + "px";
+
+          confetto.style.width = size + "px";
+          confetto.style.height = size * 1.4 + "px";
+          confetto.style.left = left + "vw";
+          confetto.style.backgroundColor = colors[i % colors.length];
+          confetto.style.animationDuration = duration + "s";
+          confetto.style.setProperty("--x-drift", xDrift);
+
+          document.body.appendChild(confetto);
+
+          setTimeout(() => confetto.remove(), duration * 1000);
+        }
+      }
+
+      yesBtn.addEventListener("click", () => {
+        message.textContent = "Yay! It’s a date 💘";
+        yesBtn.disabled = true;
+        noBtn.disabled = true;
+        yesBtn.style.cursor = "default";
+        noBtn.style.cursor = "default";
+        shootConfetti();
+        yayImg.classList.add("visible");
+      });
+
+      noBtn.addEventListener("click", () => {
+        message.textContent = "Nice try. That’s illegal on this page.";
+      });
+    </script>
+  </body>
 </html>
